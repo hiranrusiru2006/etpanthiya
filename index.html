@@ -27,11 +27,18 @@
             font-family: 'Poppins', sans-serif;
         }
         
+        html {
+            overflow-x: hidden;
+            width: 100%;
+        }
+        
         body {
             background-color: var(--dark-color);
             color: var(--text-color);
             line-height: 1.6;
             overflow-x: hidden;
+            width: 100%;
+            position: relative;
         }
         
         /* Loading Screen */
@@ -127,6 +134,13 @@
             top: 0;
             z-index: 100;
             border-bottom: 1px solid rgba(77, 166, 255, 0.3);
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
         }
         
         .navbar {
@@ -953,11 +967,34 @@
         
         @media (max-width: 768px) {
             .nav-links {
-                display: none;
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 80%;
+                height: calc(100vh - 80px);
+                background: rgba(10, 25, 47, 0.95);
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                padding-top: 30px;
+                transition: all 0.5s ease;
+            }
+            
+            .nav-links.active {
+                left: 0;
+            }
+            
+            .nav-links li {
+                margin: 15px 0;
             }
             
             .mobile-menu {
                 display: block;
+                z-index: 101;
+            }
+            
+            .mobile-menu.active i {
+                transform: rotate(90deg);
             }
             
             .hero h2 {
@@ -1130,7 +1167,7 @@
             <div class="tutors-grid">
                 <div class="tutor-card">
                     <div class="tutor-img">
-                        <img src="https://i.ibb.co/rGHPPhNk/white-shirt-tutor.jpg" alt="Dulanja Rusiru">
+                        <img src="https://i.ibb.co/rGHPPhN/white-shirt-tutor.jpg" alt="Dulanja Rusiru">
                     </div>
                     <div class="tutor-info">
                         <h3>Dulanja Rusiru</h3>
@@ -1144,7 +1181,7 @@
                 </div>
                 <div class="tutor-card">
                     <div class="tutor-img">
-                        <img src="https://i.ibb.co/tprzvCsV/blue-shirt-tutor.jpg" alt="UD Sir">
+                        <img src="https://i.ibb.co/tprzvCs/blue-shirt-tutor.jpg" alt="UD Sir">
                     </div>
                     <div class="tutor-info">
                         <h3>UD Sir</h3>
@@ -1169,7 +1206,7 @@
             <div class="online-tutors">
                 <div class="online-tutor-card">
                     <div class="online-tutor-img">
-                        <img src="https://i.ibb.co/rGHPPhNk/white-shirt-tutor.jpg" alt="Dulanja Rusiru Online Classes">
+                        <img src="https://i.ibb.co/rGHPPhN/white-shirt-tutor.jpg" alt="Dulanja Rusiru Online Classes">
                     </div>
                     <div class="online-tutor-info">
                         <h3>Dulanja Rusiru</h3>
@@ -1200,7 +1237,7 @@
                 </div>
                 <div class="online-tutor-card">
                     <div class="online-tutor-img">
-                        <img src="https://i.ibb.co/tprzvCsV/blue-shirt-tutor.jpg" alt="UD Sir Online Classes">
+                        <img src="https://i.ibb.co/tprzvCs/blue-shirt-tutor.jpg" alt="UD Sir Online Classes">
                     </div>
                     <div class="online-tutor-info">
                         <h3>UD Sir</h3>
@@ -1500,26 +1537,32 @@
         
         createBlueBubbles();
 
-        // Animate Numbers
+        // Improved Animate Numbers
         function animateNumbers() {
             const statNumbers = document.querySelectorAll('.stat-number');
-            const speed = 200;
             
             statNumbers.forEach(statNumber => {
-                const target = +statNumber.getAttribute('data-target');
-                const count = +statNumber.innerText;
-                const increment = target / speed;
+                const target = parseInt(statNumber.getAttribute('data-target'));
+                const duration = 2000; // Animation duration in ms
+                const startTime = performance.now();
                 
-                if (count < target) {
-                    statNumber.innerText = Math.ceil(count + increment);
-                    setTimeout(animateNumbers, 1);
-                } else {
-                    statNumber.innerText = target + (statNumber.getAttribute('data-target').includes('%') ? '%' : '+');
-                }
+                const animate = (currentTime) => {
+                    const elapsedTime = currentTime - startTime;
+                    const progress = Math.min(elapsedTime / duration, 1);
+                    const currentValue = Math.floor(progress * target);
+                    
+                    statNumber.textContent = currentValue + (statNumber.getAttribute('data-target').includes('%') ? '%' : '+');
+                    
+                    if (progress < 1) {
+                        requestAnimationFrame(animate);
+                    }
+                };
+                
+                requestAnimationFrame(animate);
             });
         }
         
-        // Start animation when stats section is in view
+        // Start animation when sections are in view
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -1536,17 +1579,32 @@
         // Music Player
         const bgMusic = document.getElementById('bgMusic');
         const playBtn = document.getElementById('playBtn');
-        const prevBtn = document.getElementById('prevBtn');
-        const nextBtn = document.getElementById('nextBtn');
         
         let isPlaying = false;
+        
+        // Handle page visibility changes
+        document.addEventListener('visibilitychange', function() {
+            if (document.hidden && isPlaying) {
+                bgMusic.pause();
+                playBtn.innerHTML = '<i class="fas fa-play"></i>';
+                isPlaying = false;
+            }
+        });
         
         // Start music automatically after loading
         setTimeout(() => {
             bgMusic.volume = 0.3;
-            bgMusic.play();
-            playBtn.innerHTML = '<i class="fas fa-pause"></i>';
-            isPlaying = true;
+            const playPromise = bgMusic.play();
+            
+            if (playPromise !== undefined) {
+                playPromise.then(_ => {
+                    playBtn.innerHTML = '<i class="fas fa-pause"></i>';
+                    isPlaying = true;
+                })
+                .catch(error => {
+                    console.log("Autoplay prevented:", error);
+                });
+            }
         }, 2500);
         
         playBtn.addEventListener('click', function() {
@@ -1559,44 +1617,49 @@
             }
             isPlaying = !isPlaying;
         });
-        
-        // For demo purposes - these would control tracks in a real playlist
-        prevBtn.addEventListener('click', function() {
-            // Previous track functionality
-        });
-        
-        nextBtn.addEventListener('click', function() {
-            // Next track functionality
-        });
 
         // Mobile Menu Toggle
-        document.querySelector('.mobile-menu').addEventListener('click', function() {
-            document.querySelector('.nav-links').classList.toggle('active');
+        const mobileMenuBtn = document.querySelector('.mobile-menu');
+        const navLinks = document.querySelector('.nav-links');
+        
+        mobileMenuBtn.addEventListener('click', function() {
+            navLinks.classList.toggle('active');
+            mobileMenuBtn.innerHTML = navLinks.classList.contains('active') 
+                ? '<i class="fas fa-times"></i>' 
+                : '<i class="fas fa-bars"></i>';
+        });
+        
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+            });
         });
         
         // Smooth scrolling for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
+            anchor.addEventListener('click', function(e) {
                 e.preventDefault();
                 
                 document.querySelector(this.getAttribute('href')).scrollIntoView({
                     behavior: 'smooth'
                 });
-                
-                // Close mobile menu if open
-                if (document.querySelector('.nav-links').classList.contains('active')) {
-                    document.querySelector('.nav-links').classList.remove('active');
-                }
             });
         });
 
-        // Parallax Effect on Scroll
-        window.addEventListener('scroll', function() {
-            const scrollPosition = window.pageYOffset;
-            const hero = document.querySelector('.hero');
-            
-            if (hero) {
-                hero.style.backgroundPositionY = scrollPosition * 0.5 + 'px';
+        // Fix scrolling issue
+        document.addEventListener('DOMContentLoaded', function() {
+            if (window.innerWidth > document.body.clientWidth) {
+                document.body.style.overflowX = 'hidden';
+            }
+        });
+
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > document.body.clientWidth) {
+                document.body.style.overflowX = 'hidden';
+            } else {
+                document.body.style.overflowX = 'auto';
             }
         });
     </script>

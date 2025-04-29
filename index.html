@@ -18,6 +18,7 @@
             --shadow: 0 4px 30px rgba(77, 166, 255, 0.3);
             --blue-gradient: linear-gradient(135deg, #4da6ff, #0077cc, #005c99);
             --circle-size: 120px;
+            --fire-color: #ff6b35;
         }
         
         * {
@@ -107,6 +108,17 @@
             100% { transform: rotate(360deg); }
         }
         
+        /* Fire Bubbles */
+        .fire-bubble {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--fire-color), transparent);
+            filter: blur(8px);
+            opacity: 0.5;
+            animation: float linear infinite;
+            z-index: -1;
+        }
+        
         /* Blue Bubbles */
         .blue-bubble {
             position: absolute;
@@ -156,6 +168,12 @@
             font-weight: 900;
             text-shadow: 0 0 15px rgba(77, 166, 255, 0.7);
             letter-spacing: 1px;
+            transition: all 0.3s;
+        }
+        
+        .logo h1:hover {
+            transform: scale(1.05);
+            text-shadow: 0 0 20px rgba(77, 166, 255, 0.9);
         }
         
         .nav-links {
@@ -200,6 +218,12 @@
             font-size: 1.5rem;
             cursor: pointer;
             color: var(--text-color);
+            transition: all 0.3s;
+        }
+        
+        .mobile-menu:hover {
+            color: var(--primary-color);
+            transform: scale(1.1);
         }
         
         /* Hero Section */
@@ -229,6 +253,35 @@
             z-index: 1;
         }
         
+        .tutor-title-pics {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 30px;
+            gap: 30px;
+        }
+        
+        .tutor-title-pic {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid var(--primary-color);
+            box-shadow: 0 0 20px rgba(77, 166, 255, 0.7);
+            transition: all 0.3s;
+        }
+        
+        .tutor-title-pic:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 30px rgba(77, 166, 255, 0.9);
+        }
+        
+        .tutor-title-pic img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
         .hero h2 {
             font-size: 4rem;
             margin-bottom: 20px;
@@ -238,6 +291,7 @@
             color: transparent;
             text-shadow: 0 0 20px rgba(77, 166, 255, 0.5);
             line-height: 1.2;
+            animation: fadeInUp 1s ease-out;
         }
         
         .hero p {
@@ -245,6 +299,24 @@
             max-width: 700px;
             margin: 0 auto 30px;
             color: rgba(255, 255, 255, 0.9);
+            animation: fadeInUp 1s ease-out 0.2s forwards;
+            opacity: 0;
+        }
+        
+        .hero-buttons {
+            animation: fadeInUp 1s ease-out 0.4s forwards;
+            opacity: 0;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         
         .btn {
@@ -300,6 +372,43 @@
             color: var(--light-color);
         }
         
+        /* Ongoing Section */
+        .ongoing {
+            padding: 80px 0;
+            background: rgba(10, 25, 47, 0.7);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ongoing-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .ongoing h3 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: var(--fire-color);
+            text-shadow: 0 0 10px rgba(255, 107, 53, 0.5);
+        }
+        
+        .video-container {
+            width: 100%;
+            max-width: 800px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(255, 107, 53, 0.3);
+            margin-top: 20px;
+        }
+        
+        .video-container iframe {
+            width: 100%;
+            height: 450px;
+            border: none;
+        }
+        
         /* Stats Section */
         .stats {
             padding: 100px 0;
@@ -336,6 +445,25 @@
             border-radius: 2px;
         }
         
+        /* New Typing Animation Styles */
+        .typing-text {
+            display: inline-block;
+            position: relative;
+        }
+        
+        .typing-text::after {
+            content: '|';
+            position: absolute;
+            right: -10px;
+            animation: blink 0.7s infinite;
+            color: var(--primary-color);
+        }
+        
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+        
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -351,6 +479,10 @@
             transition: all 0.5s;
             backdrop-filter: blur(5px);
             border: 1px solid rgba(77, 166, 255, 0.1);
+            min-height: 250px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
         
         .stat-card:hover {
@@ -366,11 +498,13 @@
         }
         
         .stat-number {
-            font-size: 0;
+            font-size: 2.5rem;
             color: var(--primary-color);
             margin-bottom: 10px;
             display: inline-block;
             font-weight: 700;
+            height: 60px;
+            line-height: 60px;
         }
         
         .stat-card p {
@@ -398,6 +532,92 @@
             color: var(--light-color);
             transform: translateY(-3px);
             box-shadow: 0 5px 15px rgba(77, 166, 255, 0.4);
+        }
+        
+        /* Free Classes Section */
+        .free-classes {
+            padding: 100px 0;
+            background: var(--dark-color);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .free-classes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 40px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .free-class-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: var(--shadow);
+            transition: all 0.5s;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(77, 166, 255, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .free-class-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(77, 166, 255, 0.4);
+        }
+        
+        .free-class-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-bottom: 20px;
+            border: 5px solid rgba(77, 166, 255, 0.3);
+            box-shadow: 0 5px 15px rgba(77, 166, 255, 0.3);
+        }
+        
+        .free-class-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .free-class-info {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .free-class-info h3 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+        
+        .free-class-info p {
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 15px;
+        }
+        
+        .free-class-btn {
+            display: inline-block;
+            background: #25D366;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            margin-top: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .free-class-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.4);
         }
         
         /* Tutors Section */
@@ -571,6 +791,7 @@
             display: flex;
             gap: 30px;
             margin-top: 20px;
+            margin-bottom: 20px;
         }
         
         .stat-circle {
@@ -805,6 +1026,67 @@
             transform: translateY(-3px);
         }
         
+        /* Gallery Section */
+        .gallery {
+            padding: 100px 0;
+            background: var(--dark-color);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .gallery-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        .gallery-slider {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .gallery-slider::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .gallery-slide {
+            flex: 0 0 100%;
+            scroll-snap-align: start;
+            position: relative;
+        }
+        
+        .gallery-img {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+        }
+        
+        .gallery-nav {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            gap: 10px;
+        }
+        
+        .gallery-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .gallery-dot.active {
+            background: var(--primary-color);
+            transform: scale(1.2);
+        }
+        
         /* Footer */
         footer {
             background: rgba(5, 15, 30, 0.9);
@@ -1015,6 +1297,10 @@
             .section-title h2 {
                 font-size: 2.5rem;
             }
+            
+            .video-container iframe {
+                height: 400px;
+            }
         }
         
         @media (max-width: 992px) {
@@ -1036,6 +1322,14 @@
             
             .online-tutors {
                 grid-template-columns: 1fr;
+            }
+            
+            .free-classes-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .video-container iframe {
+                height: 350px;
             }
         }
         
@@ -1110,6 +1404,18 @@
             .hero h2 {
                 margin-top: 20px;
             }
+            
+            .tutor-title-pics {
+                display: none;
+            }
+            
+            .video-container iframe {
+                height: 300px;
+            }
+            
+            .gallery-img {
+                height: 350px;
+            }
         }
         
         @media (max-width: 576px) {
@@ -1167,6 +1473,14 @@
                 width: 40px;
                 height: 40px;
             }
+            
+            .video-container iframe {
+                height: 250px;
+            }
+            
+            .gallery-img {
+                height: 250px;
+            }
         }
     </style>
 </head>
@@ -1177,23 +1491,24 @@
         <div class="loader"></div>
     </div>
 
-    <!-- Blue Bubbles Background -->
+    <!-- Fire and Blue Bubbles Background -->
+    <div id="fireBubbles"></div>
     <div id="blueBubbles"></div>
 
     <!-- Header -->
-    <header>
-        <div class="container">
+    <header><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+         <div class="container">
             <nav class="navbar">
                 <div class="logo">
                     <h1>ET Panthiya</h1>
                 </div>
                 <ul class="nav-links">
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#tutors">Tutors</a></li>
-                    <li><a href="#online-classes">Online Classes</a></li>
-                    <li><a href="#classes">Physical Classes</a></li>
-                    <li><a href="#locations">Locations</a></li>
-                    <li><a href="#contact">Contact</a></li>
+                  <li><a href="#home"><i class="fas fa-home"></i> Home</a></li>
+                  <li><a href="#tutors"><i class="fas fa-chalkboard-teacher"></i> Tutors</a></li>
+                  <li><a href="#online-classes"><i class="fas fa-laptop"></i> Online Classes</a></li>
+                  <li><a href="#classes"><i class="fas fa-school"></i> Physical Classes</a></li>
+                  <li><a href="#locations"><i class="fas fa-map-marker-alt"></i> Locations</a></li>
+                  <li><a href="#contact"><i class="fas fa-envelope"></i> Contact</a></li>
                 </ul>
                 <div class="mobile-menu">
                     <i class="fas fa-bars"></i>
@@ -1206,6 +1521,14 @@
     <section class="hero" id="home">
         <div class="container">
             <div class="hero-content">
+                <div class="tutor-title-pics">
+                    <div class="tutor-title-pic">
+                        <img src="https://scontent.fcmb1-2.fna.fbcdn.net/v/t39.30808-6/3675170192758118_326833539464413_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=5f2048&_nc_ohc=ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_nc_ht=scontent.fcmb1-2.fna&oh=00_AfDABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789&oe=656789AB" alt="Dulanja Rusiru">
+                    </div>
+                    <div class="tutor-title-pic">
+                        <img src="https://scontent.fcmb1-1.fna.fbcdn.net/v/t39.30808-6/326833539464413_3675170192758118_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=5f2048&_nc_ohc=ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_nc_ht=scontent.fcmb1-1.fna&oh=00_AfDABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789&oe=656789CD" alt="UD Sir">
+                    </div>
+                </div>
                 <div class="mobile-title-tutors">
                     <div class="mobile-tutor-pic">
                         <img src="https://scontent.fcmb1-2.fna.fbcdn.net/v/t39.30808-6/3675170192758118_326833539464413_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=5f2048&_nc_ohc=ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_nc_ht=scontent.fcmb1-2.fna&oh=00_AfDABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789&oe=656789AB" alt="Dulanja Rusiru">
@@ -1216,8 +1539,25 @@
                 </div>
                 <h2>Advanced Level Engineering Technology Education</h2>
                 <p>Excel in your A/L exams with Sri Lanka's premier engineering technology tutoring institute. Learn from the best tutors and achieve your university dreams.</p>
-                <a href="#online-classes" class="btn">Join Online Classes</a>
-                <a href="#classes" class="btn btn-outline">Physical Classes</a>
+                <div class="hero-buttons">
+                    <a href="#online-classes" class="btn">Join Online Classes</a>
+                    <a href="#classes" class="btn btn-outline">Physical Classes</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ongoing Section -->
+    <section class="ongoing" id="ongoing">
+        <div class="container">
+            <div class="section-title">
+                <h2 class="typing-text" data-text="Ongoing Programs"></h2>
+            </div>
+            <div class="ongoing-container">
+                <h3>Current Special Revision Program</h3>
+                <div class="video-container">
+                    <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
             </div>
         </div>
     </section>
@@ -1226,7 +1566,7 @@
     <section class="stats">
         <div class="container">
             <div class="section-title">
-                <h2>Our Achievements</h2>
+                <h2 class="typing-text" data-text="Our Achievements"></h2>
             </div>
             <div class="stats-grid">
                 <div class="stat-card">
@@ -1256,11 +1596,48 @@
         </div>
     </section>
 
+    <!-- Free Classes Section -->
+    <section class="free-classes" id="free-classes">
+        <div class="container">
+            <div class="section-title">
+                <h2 class="typing-text" data-text="Free Classes"></h2>
+            </div>
+            <div class="free-classes-grid">
+                <div class="free-class-card">
+                    <div class="free-class-img">
+                        <img src="https://scontent.fcmb1-2.fna.fbcdn.net/v/t39.30808-6/3675170192758118_326833539464413_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=5f2048&_nc_ohc=ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_nc_ht=scontent.fcmb1-2.fna&oh=00_AfDABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789&oe=656789AB" alt="Dulanja Rusiru Free Classes">
+                    </div>
+                    <div class="free-class-info">
+                        <h3>Dulanja Rusiru</h3>
+                        <p>Free weekly physics and mathematics classes covering essential topics for A/L Engineering Technology students.</p>
+                        <p><strong>Every Saturday: 9AM - 12PM</strong></p>
+                        <a href="https://wa.me/94771234567" class="free-class-btn" target="_blank">
+                            <i class="fab fa-whatsapp"></i> Join WhatsApp Group
+                        </a>
+                    </div>
+                </div>
+                <div class="free-class-card">
+                    <div class="free-class-img">
+                        <img src="https://scontent.fcmb1-1.fna.fbcdn.net/v/t39.30808-6/326833539464413_3675170192758118_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=5f2048&_nc_ohc=ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_nc_ht=scontent.fcmb1-1.fna&oh=00_AfDABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789&oe=656789CD" alt="UD Sir Free Classes">
+                    </div>
+                    <div class="free-class-info">
+                        <h3>UD Sir</h3>
+                        <p>Free engineering technology concept classes with problem-solving sessions and exam techniques.</p>
+                        <p><strong>Every Sunday: 2PM - 5PM</strong></p>
+                        <a href="https://wa.me/94771234567" class="free-class-btn" target="_blank">
+                            <i class="fab fa-whatsapp"></i> Join WhatsApp Group
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Tutors Section -->
     <section class="tutors" id="tutors">
         <div class="container">
             <div class="section-title">
-                <h2>Meet Our Expert Tutors</h2>
+                <h2 class="typing-text" data-text="Meet Our Expert Tutors"></h2>
             </div>
             <div class="tutors-grid">
                 <div class="tutor-card">
@@ -1299,7 +1676,7 @@
     <section class="online-classes" id="online-classes">
         <div class="container">
             <div class="section-title">
-                <h2>Our Online Classes</h2>
+                <h2 class="typing-text" data-text="Our Online Classes"></h2>
             </div>
             <div class="online-tutors">
                 <div class="online-tutor-card">
@@ -1332,6 +1709,7 @@
                             <div class="circle-label">Island Ranks</div>
                         </div>
                     </div>
+                    <a href="https://wa.me/94771234567" class="btn" style="width: 100%; text-align: center;">Join Now</a>
                 </div>
                 <div class="online-tutor-card">
                     <div class="online-tutor-img">
@@ -1363,6 +1741,7 @@
                             <div class="circle-label">Pass Rate</div>
                         </div>
                     </div>
+                    <a href="https://wa.me/94771234567" class="btn" style="width: 100%; text-align: center;">Join Now</a>
                 </div>
             </div>
         </div>
@@ -1372,7 +1751,7 @@
     <section class="classes" id="classes">
         <div class="container">
             <div class="section-title">
-                <h2>Our Physical Classes</h2>
+                <h2 class="typing-text" data-text="Our Physical Classes"></h2>
             </div>
             <div class="classes-container">
                 <div class="classes-info">
@@ -1411,7 +1790,7 @@
     <section class="locations" id="locations">
         <div class="container">
             <div class="section-title">
-                <h2>Our Class Locations</h2>
+                <h2 class="typing-text" data-text="Our Class Locations"></h2>
             </div>
             <div class="locations-grid">
                 <!-- Monaragala A Pozitive -->
@@ -1571,6 +1950,61 @@
         </div>
     </section>
 
+    <!-- Gallery Section -->
+    <section class="gallery" id="gallery">
+        <div class="container">
+            <div class="section-title">
+                <h2 class="typing-text" data-text="Our Gallery"></h2>
+            </div>
+            <div class="gallery-container">
+                <div class="gallery-slider" id="gallerySlider">
+                    <div class="gallery-slide">
+                        <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Classroom Session" class="gallery-img">
+                    </div>
+                    <div class="gallery-slide">
+                        <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Students Learning" class="gallery-img">
+                    </div>
+                    <div class="gallery-slide">
+                        <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Graduation" class="gallery-img">
+                    </div>
+                    <div class="gallery-slide">
+                        <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Lecture" class="gallery-img">
+                    </div>
+                    <div class="gallery-slide">
+                        <img src="https://images.unsplash.com/photo-1524179091875-b494986c6e1f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Group Study" class="gallery-img">
+                    </div>
+                    <div class="gallery-slide">
+                        <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Exam Preparation" class="gallery-img">
+                    </div>
+                    <div class="gallery-slide">
+                        <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Practical Session" class="gallery-img">
+                    </div>
+                    <div class="gallery-slide">
+                        <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Award Ceremony" class="gallery-img">
+                    </div>
+                    <div class="gallery-slide">
+                        <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Workshop" class="gallery-img">
+                    </div>
+                    <div class="gallery-slide">
+                        <img src="https://images.unsplash.com/photo-1524179091875-b494986c6e1f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Seminar" class="gallery-img">
+                    </div>
+                </div>
+                <div class="gallery-nav" id="galleryNav">
+                    <div class="gallery-dot active" data-index="0"></div>
+                    <div class="gallery-dot" data-index="1"></div>
+                    <div class="gallery-dot" data-index="2"></div>
+                    <div class="gallery-dot" data-index="3"></div>
+                    <div class="gallery-dot" data-index="4"></div>
+                    <div class="gallery-dot" data-index="5"></div>
+                    <div class="gallery-dot" data-index="6"></div>
+                    <div class="gallery-dot" data-index="7"></div>
+                    <div class="gallery-dot" data-index="8"></div>
+                    <div class="gallery-dot" data-index="9"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Footer -->
     <footer id="contact">
         <div class="container">
@@ -1588,11 +2022,13 @@
                 <div class="footer-col">
                     <h3>Quick Links</h3>
                     <a href="#home">Home</a>
+                    <a href="#ongoing">Ongoing</a>
+                    <a href="#free-classes">Free Classes</a>
                     <a href="#tutors">Tutors</a>
                     <a href="#online-classes">Online Classes</a>
                     <a href="#classes">Physical Classes</a>
                     <a href="#locations">Locations</a>
-                    <a href="#contact">Contact</a>
+                    <a href="#gallery">Gallery</a>
                 </div>
                 <div class="footer-col">
                     <h3>Contact Us</h3>
@@ -1631,7 +2067,7 @@
     </a>
 
     <!-- Audio Element -->
-    <audio id="bgMusic" loop>
+    <audio id="bgMusic" loop muted>
         <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3" type="audio/mpeg">
         Your browser does not support the audio element.
     </audio>
@@ -1643,10 +2079,40 @@
                 document.getElementById('loadingScreen').style.opacity = '0';
                 setTimeout(function() {
                     document.getElementById('loadingScreen').style.display = 'none';
+                    // Start typing animations after page loads
+                    initTypingAnimations();
                 }, 1000);
             }, 2000);
         });
 
+        // Fire Bubbles Animation
+        function createFireBubbles() {
+            const container = document.getElementById('fireBubbles');
+            const bubbleCount = 15;
+            
+            for (let i = 0; i < bubbleCount; i++) {
+                const bubble = document.createElement('div');
+                bubble.classList.add('fire-bubble');
+                
+                // Random properties
+                const size = Math.random() * 100 + 50;
+                const posX = Math.random() * 100;
+                const duration = Math.random() * 30 + 20;
+                const delay = Math.random() * 15;
+                const blur = Math.random() * 10 + 5;
+                
+                bubble.style.width = `${size}px`;
+                bubble.style.height = `${size}px`;
+                bubble.style.left = `${posX}%`;
+                bubble.style.animationDuration = `${duration}s`;
+                bubble.style.animationDelay = `${delay}s`;
+                bubble.style.filter = `blur(${blur}px)`;
+                bubble.style.opacity = Math.random() * 0.5 + 0.2;
+                
+                container.appendChild(bubble);
+            }
+        }
+        
         // Blue Bubbles Animation
         function createBlueBubbles() {
             const container = document.getElementById('blueBubbles');
@@ -1675,7 +2141,42 @@
             }
         }
         
+        createFireBubbles();
         createBlueBubbles();
+
+        // Typing Animation for Section Titles
+        function initTypingAnimations() {
+            const typingElements = document.querySelectorAll('.typing-text');
+            const typingDelay = 100; // Delay between characters (ms)
+            const startDelay = 500; // Initial delay before first animation starts (ms)
+            
+            typingElements.forEach((element, index) => {
+                const text = element.getAttribute('data-text');
+                element.setAttribute('data-text', text); // Store original text
+                element.textContent = ''; // Clear the text
+                
+                // Start typing animation with staggered delay
+                setTimeout(() => {
+                    typeText(element, text, typingDelay);
+                }, startDelay + (index * 500));
+            });
+        }
+        
+        function typeText(element, text, delay) {
+            let i = 0;
+            const typingInterval = setInterval(() => {
+                if (i < text.length) {
+                    element.textContent += text.charAt(i);
+                    i++;
+                } else {
+                    clearInterval(typingInterval);
+                    // Remove the cursor after typing is complete
+                    setTimeout(() => {
+                        element.style.setProperty('--cursor-visibility', 'hidden');
+                    }, 500);
+                }
+            }, delay);
+        }
 
         // Improved Animate Numbers
         function animateNumbers() {
@@ -1731,22 +2232,6 @@
             }
         });
         
-        // Start music automatically after loading
-        setTimeout(() => {
-            bgMusic.volume = 0.3;
-            const playPromise = bgMusic.play();
-            
-            if (playPromise !== undefined) {
-                playPromise.then(_ => {
-                    playBtn.innerHTML = '<i class="fas fa-pause"></i>';
-                    isPlaying = true;
-                })
-                .catch(error => {
-                    console.log("Autoplay prevented:", error);
-                });
-            }
-        }, 2500);
-        
         playBtn.addEventListener('click', function() {
             if (isPlaying) {
                 bgMusic.pause();
@@ -1756,6 +2241,9 @@
                 playBtn.innerHTML = '<i class="fas fa-pause"></i>';
             }
             isPlaying = !isPlaying;
+            
+            // Toggle mute when play/pause is clicked
+            bgMusic.muted = !bgMusic.muted;
         });
 
         // Mobile Menu Toggle
@@ -1802,6 +2290,61 @@
                 document.body.style.overflowX = 'auto';
             }
         });
+
+        // Gallery Slider
+        const gallerySlider = document.getElementById('gallerySlider');
+        const galleryDots = document.querySelectorAll('.gallery-dot');
+        let currentSlide = 0;
+        const slideCount = document.querySelectorAll('.gallery-slide').length;
+
+        function updateGallery() {
+            gallerySlider.scrollTo({
+                left: currentSlide * gallerySlider.offsetWidth,
+                behavior: 'smooth'
+            });
+            
+            galleryDots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentSlide);
+            });
+        }
+
+        // Auto slide
+        setInterval(() => {
+            currentSlide = (currentSlide + 1) % slideCount;
+            updateGallery();
+        }, 5000);
+
+        // Dot navigation
+        galleryDots.forEach(dot => {
+            dot.addEventListener('click', function() {
+                currentSlide = parseInt(this.getAttribute('data-index'));
+                updateGallery();
+            });
+        });
+
+        // Touch support for gallery
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        gallerySlider.addEventListener('touchstart', e => {
+            touchStartX = e.changedTouches[0].screenX;
+        }, false);
+
+        gallerySlider.addEventListener('touchend', e => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        }, false);
+
+        function handleSwipe() {
+            if (touchEndX < touchStartX) {
+                // Swipe left - next slide
+                currentSlide = Math.min(currentSlide + 1, slideCount - 1);
+            } else if (touchEndX > touchStartX) {
+                // Swipe right - previous slide
+                currentSlide = Math.max(currentSlide - 1, 0);
+            }
+            updateGallery();
+        }
     </script>
 </body>
 </html>

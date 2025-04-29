@@ -1273,37 +1273,27 @@
             gap: 15px;
         }
         
-       /* Add this to your media queries section */
-@media (max-width: 992px) {
-    .mobile-tutor-pic {
-        width: 80px;
-        height: 80px;
-        border-width: 3px;
-    }
-    
-    .mobile-title-tutors {
-        margin-bottom: 30px;
-        gap: 20px;
-    }
-}
-
-@media (max-width: 768px) {
-    .mobile-tutor-pic {
-        width: 70px;
-        height: 70px;
-    }
-    
-    .hero h2 {
-        margin-top: 15px;
-    }
-}
-
-@media (max-width: 576px) {
-    .mobile-tutor-pic {
-        width: 60px;
-        height: 60px;
-    }
-}
+        .mobile-tutor-pic {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 2px solid var(--primary-color);
+            box-shadow: 0 0 15px rgba(77, 166, 255, 0.5);
+        }
+        
+        .mobile-tutor-pic img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 1200px) {
+            .hero h2 {
+                font-size: 3.5rem;
+            }
+            
             .section-title h2 {
                 font-size: 2.5rem;
             }
@@ -2189,67 +2179,43 @@
         }
 
         // Improved Animate Numbers
-        // Replace your current animateNumbers and observer code with this:
-
-function animateNumbers() {
-    const statNumbers = document.querySelectorAll('.stat-number');
-    
-    statNumbers.forEach(statNumber => {
-        // Skip if already animated
-        if (statNumber.classList.contains('animated')) return;
-        
-        statNumber.classList.add('animated');
-        const target = parseInt(statNumber.getAttribute('data-target'));
-        const duration = 2000; // Animation duration in ms
-        const startTime = performance.now();
-        
-        const animate = (currentTime) => {
-            const elapsedTime = currentTime - startTime;
-            const progress = Math.min(elapsedTime / duration, 1);
-            const currentValue = Math.floor(progress * target);
+        function animateNumbers() {
+            const statNumbers = document.querySelectorAll('.stat-number');
             
-            statNumber.textContent = currentValue + (statNumber.getAttribute('data-target').includes('%') ? '%' : (statNumber.getAttribute('data-target').endsWith('+') ? '+' : '');
-            
-            if (progress < 1) {
+            statNumbers.forEach(statNumber => {
+                const target = parseInt(statNumber.getAttribute('data-target'));
+                const duration = 2000; // Animation duration in ms
+                const startTime = performance.now();
+                
+                const animate = (currentTime) => {
+                    const elapsedTime = currentTime - startTime;
+                    const progress = Math.min(elapsedTime / duration, 1);
+                    const currentValue = Math.floor(progress * target);
+                    
+                    statNumber.textContent = currentValue + (statNumber.getAttribute('data-target').includes('%') ? '%' : '+');
+                    
+                    if (progress < 1) {
+                        requestAnimationFrame(animate);
+                    }
+                };
+                
                 requestAnimationFrame(animate);
-            }
-        };
+            });
+        }
         
-        requestAnimationFrame(animate);
-    });
-}
-
-// More reliable intersection observer with mobile-friendly settings
-const observerOptions = {
-    root: null,
-    rootMargin: '0px',
-    threshold: 0.1 // Lower threshold for mobile
-};
-
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            animateNumbers();
-            // Optional: unobserve after animating if you don't want repeat animations
-            // observer.unobserve(entry.target);
-        }
-    });
-}, observerOptions);
-
-// Observe all relevant sections
-document.querySelectorAll('.stats, .online-classes, .classes').forEach(section => {
-    observer.observe(section);
-});
-
-// Also trigger on load for any elements already in view
-window.addEventListener('load', function() {
-    document.querySelectorAll('.stat-number').forEach(el => {
-        const rect = el.getBoundingClientRect();
-        if (rect.top < window.innerHeight && rect.bottom >= 0) {
-            animateNumbers();
-        }
-    });
-});
+        // Start animation when sections are in view
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateNumbers();
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+        
+        document.querySelectorAll('.stats, .online-classes, .classes').forEach(section => {
+            observer.observe(section);
+        });
 
         // Music Player
         const bgMusic = document.getElementById('bgMusic');

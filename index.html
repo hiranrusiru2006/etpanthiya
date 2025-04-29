@@ -378,6 +378,28 @@
             color: rgba(255, 255, 255, 0.8);
         }
         
+        .view-results-btn {
+            display: block;
+            margin: 40px auto 0;
+            text-align: center;
+            background: rgba(77, 166, 255, 0.2);
+            color: var(--primary-color);
+            padding: 12px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: 1px solid rgba(77, 166, 255, 0.3);
+            max-width: 200px;
+        }
+        
+        .view-results-btn:hover {
+            background: var(--primary-color);
+            color: var(--light-color);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(77, 166, 255, 0.4);
+        }
+        
         /* Tutors Section */
         .tutors {
             padding: 100px 0;
@@ -410,7 +432,7 @@
         }
         
         .tutor-img {
-            height: 400px;
+            height: 300px;
             overflow: hidden;
             position: relative;
         }
@@ -514,8 +536,8 @@
         }
         
         .online-tutor-img {
-            width: 200px;
-            height: 200px;
+            width: 150px;
+            height: 150px;
             border-radius: 50%;
             overflow: hidden;
             margin-bottom: 20px;
@@ -734,6 +756,34 @@
             color: var(--primary-color);
         }
         
+        .location-tutor {
+            display: flex;
+            align-items: center;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(77, 166, 255, 0.2);
+        }
+        
+        .location-tutor-img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-right: 10px;
+            border: 2px solid rgba(77, 166, 255, 0.3);
+        }
+        
+        .location-tutor-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .location-tutor-name {
+            font-size: 0.9rem;
+            color: var(--primary-color);
+        }
+        
         .btn-location {
             background: rgba(77, 166, 255, 0.2);
             color: var(--primary-color);
@@ -932,6 +982,30 @@
             100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
         }
         
+        /* Mobile Title with Tutor Pics */
+        .mobile-title-tutors {
+            display: none;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+            gap: 15px;
+        }
+        
+        .mobile-tutor-pic {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 2px solid var(--primary-color);
+            box-shadow: 0 0 15px rgba(77, 166, 255, 0.5);
+        }
+        
+        .mobile-tutor-pic img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
         /* Responsive Styles */
         @media (max-width: 1200px) {
             .hero h2 {
@@ -1018,7 +1092,7 @@
             }
             
             .tutor-img, .online-tutor-img {
-                height: 300px;
+                height: 250px;
             }
             
             .whatsapp-btn {
@@ -1027,6 +1101,14 @@
                 font-size: 1.5rem;
                 bottom: 20px;
                 left: 20px;
+            }
+            
+            .mobile-title-tutors {
+                display: flex;
+            }
+            
+            .hero h2 {
+                margin-top: 20px;
             }
         }
         
@@ -1080,6 +1162,11 @@
             .circle-text {
                 font-size: 1.2rem;
             }
+            
+            .mobile-tutor-pic {
+                width: 40px;
+                height: 40px;
+            }
         }
     </style>
 </head>
@@ -1119,6 +1206,14 @@
     <section class="hero" id="home">
         <div class="container">
             <div class="hero-content">
+                <div class="mobile-title-tutors">
+                    <div class="mobile-tutor-pic">
+                        <img src="https://scontent.fcmb1-2.fna.fbcdn.net/v/t39.30808-6/3675170192758118_326833539464413_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=5f2048&_nc_ohc=ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_nc_ht=scontent.fcmb1-2.fna&oh=00_AfDABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789&oe=656789AB" alt="Dulanja Rusiru">
+                    </div>
+                    <div class="mobile-tutor-pic">
+                        <img src="https://scontent.fcmb1-1.fna.fbcdn.net/v/t39.30808-6/326833539464413_3675170192758118_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=5f2048&_nc_ohc=ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_nc_ht=scontent.fcmb1-1.fna&oh=00_AfDABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789&oe=656789CD" alt="UD Sir">
+                    </div>
+                </div>
                 <h2>Advanced Level Engineering Technology Education</h2>
                 <p>Excel in your A/L exams with Sri Lanka's premier engineering technology tutoring institute. Learn from the best tutors and achieve your university dreams.</p>
                 <a href="#online-classes" class="btn">Join Online Classes</a>
@@ -1155,6 +1250,9 @@
                     <p>Exam Pass Rate</p>
                 </div>
             </div>
+            <a href="https://web.facebook.com/profile.php?id=61574784083147" class="view-results-btn" target="_blank">
+                <i class="fas fa-external-link-alt"></i> View Results
+            </a>
         </div>
     </section>
 
@@ -1167,7 +1265,7 @@
             <div class="tutors-grid">
                 <div class="tutor-card">
                     <div class="tutor-img">
-                        <img src="https://i.ibb.co/rGHPPhN/white-shirt-tutor.jpg" alt="Dulanja Rusiru">
+                        <img src="https://scontent.fcmb1-2.fna.fbcdn.net/v/t39.30808-6/3675170192758118_326833539464413_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=5f2048&_nc_ohc=ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_nc_ht=scontent.fcmb1-2.fna&oh=00_AfDABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789&oe=656789AB" alt="Dulanja Rusiru">
                     </div>
                     <div class="tutor-info">
                         <h3>Dulanja Rusiru</h3>
@@ -1181,7 +1279,7 @@
                 </div>
                 <div class="tutor-card">
                     <div class="tutor-img">
-                        <img src="https://i.ibb.co/tprzvCs/blue-shirt-tutor.jpg" alt="UD Sir">
+                        <img src="https://scontent.fcmb1-1.fna.fbcdn.net/v/t39.30808-6/326833539464413_3675170192758118_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=5f2048&_nc_ohc=ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_nc_ht=scontent.fcmb1-1.fna&oh=00_AfDABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789&oe=656789CD" alt="UD Sir">
                     </div>
                     <div class="tutor-info">
                         <h3>UD Sir</h3>
@@ -1206,7 +1304,7 @@
             <div class="online-tutors">
                 <div class="online-tutor-card">
                     <div class="online-tutor-img">
-                        <img src="https://i.ibb.co/rGHPPhN/white-shirt-tutor.jpg" alt="Dulanja Rusiru Online Classes">
+                        <img src="https://scontent.fcmb1-2.fna.fbcdn.net/v/t39.30808-6/3675170192758118_326833539464413_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=5f2048&_nc_ohc=ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_nc_ht=scontent.fcmb1-2.fna&oh=00_AfDABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789&oe=656789AB" alt="Dulanja Rusiru Online Classes">
                     </div>
                     <div class="online-tutor-info">
                         <h3>Dulanja Rusiru</h3>
@@ -1237,7 +1335,7 @@
                 </div>
                 <div class="online-tutor-card">
                     <div class="online-tutor-img">
-                        <img src="https://i.ibb.co/tprzvCs/blue-shirt-tutor.jpg" alt="UD Sir Online Classes">
+                        <img src="https://scontent.fcmb1-1.fna.fbcdn.net/v/t39.30808-6/326833539464413_3675170192758118_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=5f2048&_nc_ohc=ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_nc_ht=scontent.fcmb1-1.fna&oh=00_AfDABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789&oe=656789CD" alt="UD Sir Online Classes">
                     </div>
                     <div class="online-tutor-info">
                         <h3>UD Sir</h3>
@@ -1326,6 +1424,12 @@
                         <p><i class="fas fa-map-marker-alt"></i> A Pozitive Education Center, Monaragala</p>
                         <p><i class="fas fa-phone"></i> 055 234 5678</p>
                         <p><i class="fas fa-clock"></i> Mon-Fri: 8AM-6PM, Sat: 8AM-1PM</p>
+                        <div class="location-tutor">
+                            <div class="location-tutor-img">
+                                <img src="https://scontent.fcmb1-1.fna.fbcdn.net/v/t39.30808-6/326833539464413_3675170192758118_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=5f2048&_nc_ohc=ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_nc_ht=scontent.fcmb1-1.fna&oh=00_AfDABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789&oe=656789CD" alt="UD Sir">
+                            </div>
+                            <div class="location-tutor-name">UD Sir</div>
+                        </div>
                         <a href="https://www.google.com/maps/search/monaragala+a+pozitive+education+center" class="btn-location" target="_blank">
                             <i class="fas fa-map-marked-alt"></i> Get Directions
                         </a>
@@ -1342,6 +1446,12 @@
                         <p><i class="fas fa-map-marker-alt"></i> Navamaga Education Center, Monaragala</p>
                         <p><i class="fas fa-phone"></i> 055 345 6789</p>
                         <p><i class="fas fa-clock"></i> Mon-Fri: 8AM-6PM, Sat: 8AM-1PM</p>
+                        <div class="location-tutor">
+                            <div class="location-tutor-img">
+                                <img src="https://scontent.fcmb1-1.fna.fbcdn.net/v/t39.30808-6/326833539464413_3675170192758118_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=5f2048&_nc_ohc=ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_nc_ht=scontent.fcmb1-1.fna&oh=00_AfDABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789&oe=656789CD" alt="UD Sir">
+                            </div>
+                            <div class="location-tutor-name">UD Sir</div>
+                        </div>
                         <a href="https://www.google.com/maps/search/monaragala+navamaga+education+center" class="btn-location" target="_blank">
                             <i class="fas fa-map-marked-alt"></i> Get Directions
                         </a>
@@ -1358,6 +1468,12 @@
                         <p><i class="fas fa-map-marker-alt"></i> Vidya Pradeepa Education Center, Wellawaya</p>
                         <p><i class="fas fa-phone"></i> 055 456 7890</p>
                         <p><i class="fas fa-clock"></i> Mon-Fri: 8AM-6PM, Sat: 8AM-1PM</p>
+                        <div class="location-tutor">
+                            <div class="location-tutor-img">
+                                <img src="https://scontent.fcmb1-1.fna.fbcdn.net/v/t39.30808-6/326833539464413_3675170192758118_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=5f2048&_nc_ohc=ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_nc_ht=scontent.fcmb1-1.fna&oh=00_AfDABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789&oe=656789CD" alt="UD Sir">
+                            </div>
+                            <div class="location-tutor-name">UD Sir</div>
+                        </div>
                         <a href="https://www.google.com/maps/search/wellawaya+vidya+pradeepa+education+center" class="btn-location" target="_blank">
                             <i class="fas fa-map-marked-alt"></i> Get Directions
                         </a>
@@ -1374,6 +1490,12 @@
                         <p><i class="fas fa-map-marker-alt"></i> Zion 6 Education Center, Ampara</p>
                         <p><i class="fas fa-phone"></i> 063 234 5678</p>
                         <p><i class="fas fa-clock"></i> Mon-Fri: 8AM-6PM, Sat: 8AM-1PM</p>
+                        <div class="location-tutor">
+                            <div class="location-tutor-img">
+                                <img src="https://scontent.fcmb1-1.fna.fbcdn.net/v/t39.30808-6/326833539464413_3675170192758118_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=5f2048&_nc_ohc=ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_nc_ht=scontent.fcmb1-1.fna&oh=00_AfDABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789&oe=656789CD" alt="UD Sir">
+                            </div>
+                            <div class="location-tutor-name">UD Sir</div>
+                        </div>
                         <a href="https://www.google.com/maps/search/ampara+zion+6+education+center" class="btn-location" target="_blank">
                             <i class="fas fa-map-marked-alt"></i> Get Directions
                         </a>
@@ -1390,6 +1512,12 @@
                         <p><i class="fas fa-map-marker-alt"></i> Visu Education Center, Nittambuwa</p>
                         <p><i class="fas fa-phone"></i> 033 234 5678</p>
                         <p><i class="fas fa-clock"></i> Mon-Fri: 8AM-6PM, Sat: 8AM-1PM</p>
+                        <div class="location-tutor">
+                            <div class="location-tutor-img">
+                                <img src="https://scontent.fcmb1-2.fna.fbcdn.net/v/t39.30808-6/3675170192758118_326833539464413_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=5f2048&_nc_ohc=ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_nc_ht=scontent.fcmb1-2.fna&oh=00_AfDABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789&oe=656789AB" alt="Dulanja Rusiru">
+                            </div>
+                            <div class="location-tutor-name">Dulanja Rusiru</div>
+                        </div>
                         <a href="https://www.google.com/maps/search/visu+education+center+nittambuwa" class="btn-location" target="_blank">
                             <i class="fas fa-map-marked-alt"></i> Get Directions
                         </a>
@@ -1406,6 +1534,12 @@
                         <p><i class="fas fa-map-marker-alt"></i> Science Center, Near No Limit, Kegalle</p>
                         <p><i class="fas fa-phone"></i> 035 234 5678</p>
                         <p><i class="fas fa-clock"></i> Mon-Fri: 8AM-6PM, Sat: 8AM-1PM</p>
+                        <div class="location-tutor">
+                            <div class="location-tutor-img">
+                                <img src="https://scontent.fcmb1-2.fna.fbcdn.net/v/t39.30808-6/3675170192758118_326833539464413_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=5f2048&_nc_ohc=ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_nc_ht=scontent.fcmb1-2.fna&oh=00_AfDABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789&oe=656789AB" alt="Dulanja Rusiru">
+                            </div>
+                            <div class="location-tutor-name">Dulanja Rusiru</div>
+                        </div>
                         <a href="https://www.google.com/maps/search/science+center+kegalle+near+no+limit" class="btn-location" target="_blank">
                             <i class="fas fa-map-marked-alt"></i> Get Directions
                         </a>
@@ -1422,6 +1556,12 @@
                         <p><i class="fas fa-map-marker-alt"></i> New Center Opening Soon</p>
                         <p><i class="fas fa-phone"></i> Contact HQ for details</p>
                         <p><i class="fas fa-clock"></i> Opening 2024</p>
+                        <div class="location-tutor">
+                            <div class="location-tutor-img">
+                                <img src="https://scontent.fcmb1-2.fna.fbcdn.net/v/t39.30808-6/3675170192758118_326833539464413_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=5f2048&_nc_ohc=ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_nc_ht=scontent.fcmb1-2.fna&oh=00_AfDABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789&oe=656789AB" alt="Dulanja Rusiru">
+                            </div>
+                            <div class="location-tutor-name">Dulanja Rusiru</div>
+                        </div>
                         <a href="https://www.google.com/maps/search/awissawella" class="btn-location" target="_blank">
                             <i class="fas fa-map-marked-alt"></i> View Area
                         </a>

@@ -130,22 +130,90 @@
             z-index: -1;
         }
         
-        /* Blue Bubbles */
-        .blue-bubble {
-            position: absolute;
-            border-radius: 50%;
-            background: radial-gradient(circle, var(--primary-color), transparent);
-            filter: blur(8px);
-            opacity: 0.5;
-            animation: float linear infinite;
-            z-index: -1;
-        }
-        
         @keyframes float {
             0% { transform: translateY(0) rotate(0deg); opacity: 0; }
             10% { opacity: 0.5; }
             90% { opacity: 0.5; }
             100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+        }
+        
+        /* Welcome Popup */
+        .welcome-popup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9998;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.5s ease;
+        }
+        
+        .welcome-popup.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .popup-content {
+            background: var(--dark-color);
+            border-radius: 15px;
+            padding: 30px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 2px solid var(--primary-color);
+            transform: scale(0.8);
+            transition: transform 0.5s ease;
+        }
+        
+        .welcome-popup.active .popup-content {
+            transform: scale(1);
+        }
+        
+        .popup-content img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 20px;
+            border: 5px solid var(--primary-color);
+            box-shadow: 0 0 20px rgba(77, 166, 255, 0.7);
+        }
+        
+        .popup-content h2 {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+        
+        .popup-content p {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: rgba(255, 255, 255, 0.9);
+        }
+        
+        .popup-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .popup-close:hover {
+            transform: rotate(90deg);
+            color: var(--light-color);
         }
         
         /* Header Styles */
@@ -1578,6 +1646,23 @@
                 height: 40px;
                 font-size: 1.2rem;
             }
+            
+            .welcome-popup .popup-content {
+                padding: 20px;
+            }
+            
+            .popup-content img {
+                width: 100px;
+                height: 100px;
+            }
+            
+            .popup-content h2 {
+                font-size: 1.5rem;
+            }
+            
+            .popup-content p {
+                font-size: 1rem;
+            }
         }
         
         @media (max-width: 576px) {
@@ -1665,6 +1750,19 @@
             .session-info h3 {
                 font-size: 1.5rem;
             }
+            
+            .welcome-popup .popup-content {
+                padding: 15px;
+            }
+            
+            .popup-content img {
+                width: 80px;
+                height: 80px;
+            }
+            
+            .popup-content h2 {
+                font-size: 1.3rem;
+            }
         }
     </style>
 </head>
@@ -1675,14 +1773,23 @@
         <div class="loader"></div>
     </div>
 
-    <!-- Fire and Blue Bubbles Background -->
+    <!-- Welcome Popup -->
+    <div class="welcome-popup" id="welcomePopup">
+        <div class="popup-content">
+            <button class="popup-close" id="popupClose"><i class="fas fa-times"></i></button>
+            <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Welcome to ET Panthiya">
+            <h2>Welcome to ET Panthiya!</h2>
+            <p>Wooah🎉🥳!! You Are In Right Place* All The Best</p>
+        </div>
+    </div>
+
+    <!-- Fire Bubbles Background -->
     <div id="fireBubbles"></div>
-    <div id="blueBubbles"></div>
     <div id="smallFireBubbles"></div>
 
     <!-- Header -->
-    <header><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-         <div class="container">
+    <header>
+        <div class="container">
             <nav class="navbar">
                 <div class="logo">
                     <h1>ET Panthiya</h1>
@@ -2326,10 +2433,19 @@
                 document.getElementById('loadingScreen').style.opacity = '0';
                 setTimeout(function() {
                     document.getElementById('loadingScreen').style.display = 'none';
+                    // Show welcome popup after loading screen disappears
+                    setTimeout(function() {
+                        document.getElementById('welcomePopup').classList.add('active');
+                    }, 500);
                     // Start typing animations after page loads
                     initTypingAnimations();
                 }, 1000);
             }, 2000);
+        });
+
+        // Close popup when close button is clicked
+        document.getElementById('popupClose').addEventListener('click', function() {
+            document.getElementById('welcomePopup').classList.remove('active');
         });
 
         // Fire Bubbles Animation
@@ -2360,7 +2476,7 @@
             }
         }
         
-        // Small Fire Bubbles Animation
+        // Small Fire Bubbles Animation - Fixed version
         function createSmallFireBubbles() {
             const container = document.getElementById('smallFireBubbles');
             const bubbleCount = 50;
@@ -2388,37 +2504,8 @@
             }
         }
         
-        // Blue Bubbles Animation
-        function createBlueBubbles() {
-            const container = document.getElementById('blueBubbles');
-            const bubbleCount = 30;
-            
-            for (let i = 0; i < bubbleCount; i++) {
-                const bubble = document.createElement('div');
-                bubble.classList.add('blue-bubble');
-                
-                // Random properties
-                const size = Math.random() * 150 + 50;
-                const posX = Math.random() * 100;
-                const duration = Math.random() * 30 + 20;
-                const delay = Math.random() * 15;
-                const blur = Math.random() * 10 + 5;
-                
-                bubble.style.width = `${size}px`;
-                bubble.style.height = `${size}px`;
-                bubble.style.left = `${posX}%`;
-                bubble.style.animationDuration = `${duration}s`;
-                bubble.style.animationDelay = `${delay}s`;
-                bubble.style.filter = `blur(${blur}px)`;
-                bubble.style.opacity = Math.random() * 0.5 + 0.2;
-                
-                container.appendChild(bubble);
-            }
-        }
-        
         createFireBubbles();
         createSmallFireBubbles();
-        createBlueBubbles();
 
         // Typing Animation for Section Titles
         function initTypingAnimations() {

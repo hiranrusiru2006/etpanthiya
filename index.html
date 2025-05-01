@@ -1382,48 +1382,49 @@
             color: rgba(255, 255, 255, 0.5);
         }
         
-        /* Music Player */
-        .music-player {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 100;
-            background: rgba(10, 25, 47, 0.8);
-            border-radius: 50px;
-            padding: 10px 15px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            backdrop-filter: blur(5px);
-            border: 1px solid rgba(77, 166, 255, 0.3);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-        }
-        
-        .music-controls {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .music-btn {
-            background: none;
-            border: none;
-            color: var(--primary-color);
-            font-size: 1.2rem;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        
-        .music-btn:hover {
-            color: var(--light-color);
-            transform: scale(1.1);
-        }
-        
-        .music-info {
-            color: var(--light-color);
-            font-size: 0.9rem;
-            white-space: nowrap;
-        }
+       /* Music Player Styles */
+.music-player {
+    position: fixed;
+    bottom: 80px;
+    right: 20px;
+    z-index: 100;
+    background: rgba(10, 25, 47, 0.8);
+    border-radius: 50px;
+    padding: 10px 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(77, 166, 255, 0.3);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.music-btn {
+    background: none;
+    border: none;
+    color: var(--primary-color);
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.music-btn:hover {
+    background: rgba(77, 166, 255, 0.2);
+    transform: scale(1.1);
+}
+
+.music-info {
+    color: var(--light-color);
+    font-size: 0.9rem;
+    white-space: nowrap;
+    margin-right: 10px;
+}
         
         /* WhatsApp Button */
         .whatsapp-btn {
@@ -2584,11 +2585,13 @@
             observer.observe(section);
         });
 
-        // Music Player
-        const bgMusic = document.getElementById('bgMusic');
-        const playBtn = document.getElementById('playBtn');
-        
-        let isPlaying = false;
+      <!-- Music Player Control -->
+<div class="music-player">
+    <button class="music-btn" id="playPauseBtn">
+        <i class="fas fa-play" id="playPauseIcon"></i>
+    </button>
+    <div class="music-info">Background Music</div>
+</div>
         
         // Handle page visibility changes
         document.addEventListener('visibilitychange', function() {
@@ -2599,19 +2602,43 @@
             }
         });
         
-        playBtn.addEventListener('click', function() {
-            if (isPlaying) {
-                bgMusic.pause();
-                playBtn.innerHTML = '<i class="fas fa-play"></i>';
-            } else {
-                bgMusic.play();
-                playBtn.innerHTML = '<i class="fas fa-pause"></i>';
-            }
-            isPlaying = !isPlaying;
-            
-            // Toggle mute when play/pause is clicked
-            bgMusic.muted = !bgMusic.muted;
+       // ===== Music Player Control ===== //
+const bgMusic = document.getElementById('bgMusic');
+const playPauseBtn = document.getElementById('playPauseBtn');
+const playPauseIcon = document.getElementById('playPauseIcon');
+let isMusicPlaying = false;
+
+// Initialize music as paused by default
+bgMusic.volume = 0.3; // Set volume to 30%
+bgMusic.pause();
+
+// Toggle play/pause when button is clicked
+playPauseBtn.addEventListener('click', function() {
+    if (isMusicPlaying) {
+        bgMusic.pause();
+        playPauseIcon.classList.replace('fa-pause', 'fa-play');
+    } else {
+        bgMusic.play().catch(error => {
+            console.log("Playback prevented:", error);
         });
+        playPauseIcon.classList.replace('fa-play', 'fa-pause');
+    }
+    isMusicPlaying = !isMusicPlaying;
+});
+
+// Optional: Auto-play when user interacts with page (removes browser restrictions)
+document.body.addEventListener('click', function initMusic() {
+    if (!isMusicPlaying) {
+        bgMusic.play().then(() => {
+            isMusicPlaying = true;
+            playPauseIcon.classList.replace('fa-play', 'fa-pause');
+        }).catch(error => {
+            console.log("Auto-play was prevented:", error);
+        });
+    }
+    // Remove this listener after first interaction
+    document.body.removeEventListener('click', initMusic);
+}, { once: true });
 
         // Mobile Menu Toggle
         const mobileMenuBtn = document.querySelector('.mobile-menu');

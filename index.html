@@ -351,41 +351,6 @@
             color: var(--primary-color);
         }
 
-        /* Music Control Button */
-        .music-control {
-            position: fixed;
-            top: 1.5rem;
-            right: 1.5rem;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: rgba(10, 25, 47, 0.7);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(77, 166, 255, 0.3);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--primary-color);
-            cursor: pointer;
-            z-index: 99;
-            transition: all 0.3s ease;
-        }
-
-        .music-control:hover {
-            background: var(--primary-color);
-            color: white;
-            transform: scale(1.1);
-        }
-
-        .music-control.active {
-            background: var(--primary-color);
-            color: white;
-        }
-
-        .music-control i {
-            font-size: 1.2rem;
-        }
-
         /* Hero Section - Modern Layout */
         .hero {
             position: relative;
@@ -574,19 +539,17 @@
         }
         
         .btn-outline {
-           background-color: transparent;
-           color: var(--primary-color);
-           border: 2px solid var(--primary-color);
-           box-shadow: none;
-           text-shadow: 0 0 5px rgba(77, 166, 255, 0.5); /* Add subtle glow */
-       }
-
-       .btn-outline:hover {
-           background: var(--blue-gradient);
-           color: white;
-           border-color: transparent;
-           text-shadow: none;
-       }
+            background-color: transparent;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+            box-shadow: none;
+        }
+        
+        .btn-outline:hover {
+            background: var(--blue-gradient);
+            color: var(--light-color);
+            border-color: transparent;
+        }
 
         .btn-whatsapp {
             background: var(--success-color);
@@ -1838,13 +1801,6 @@
             .video-container iframe {
                 height: 400px;
             }
-
-            .music-control {
-                top: 1rem;
-                right: 1rem;
-                width: 45px;
-                height: 45px;
-            }
         }
         
         @media (max-width: 768px) {
@@ -2011,13 +1967,6 @@
                 height: 40px;
                 font-size: 1rem;
             }
-
-            .music-control {
-                top: 0.8rem;
-                right: 0.8rem;
-                width: 40px;
-                height: 40px;
-            }
         }
     </style>
 </head>
@@ -2039,11 +1988,6 @@
             <h2>Welcome to ET Panthiya!</h2>
             <p>Wooah🎉🥳!! You Are In Right Place* All The Best</p>
         </div>
-    </div>
-
-    <!-- Music Control Button -->
-    <div class="music-control" id="musicControl">
-        <i class="fas fa-music"></i>
     </div>
 
     <!-- Header -->
@@ -2814,12 +2758,6 @@
         <i class="fas fa-arrow-up"></i>
     </div>
 
-    <!-- Audio Element -->
-    <audio id="bgMusic" loop>
-        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3" type="audio/mpeg">
-        Your browser does not support the audio element.
-    </audio>
-
     <script>
         // Loading Screen
         window.addEventListener('load', function() {
@@ -3059,79 +2997,6 @@
         
         callBtn.addEventListener('click', function() {
             window.location.href = "tel:+94771234567";
-        });
-
-        // Music Player
-        const bgMusic = document.getElementById('bgMusic');
-        const musicControl = document.getElementById('musicControl');
-        let isMusicPlaying = false;
-        
-        // Set initial volume
-        bgMusic.volume = 0.2;
-        
-        // Music control button click handler
-        musicControl.addEventListener('click', function() {
-            if (isMusicPlaying) {
-                bgMusic.pause();
-                musicControl.classList.remove('active');
-                musicControl.innerHTML = '<i class="fas fa-music"></i>';
-            } else {
-                // Attempt to play music (may require user interaction on some devices)
-                const playPromise = bgMusic.play();
-                
-                if (playPromise !== undefined) {
-                    playPromise.then(() => {
-                        isMusicPlaying = true;
-                        musicControl.classList.add('active');
-                        musicControl.innerHTML = '<i class="fas fa-pause"></i>';
-                    })
-                    .catch(error => {
-                        // Show a tooltip or message that user needs to interact first
-                        console.log("Playback prevented:", error);
-                        alert("Please click anywhere on the page first to enable audio playback");
-                    });
-                }
-            }
-        });
-        
-        // Enable audio on first interaction (to comply with autoplay policies)
-        function enableAudio() {
-            document.body.removeEventListener('click', enableAudio);
-            
-            // Try to play music if not already playing
-            if (!isMusicPlaying) {
-                const playPromise = bgMusic.play();
-                
-                if (playPromise !== undefined) {
-                    playPromise.then(() => {
-                        isMusicPlaying = true;
-                        musicControl.classList.add('active');
-                        musicControl.innerHTML = '<i class="fas fa-pause"></i>';
-                    })
-                    .catch(error => {
-                        console.log("Auto-play was prevented:", error);
-                    });
-                }
-            }
-        }
-        
-        // Add click event listener to enable audio
-        document.body.addEventListener('click', enableAudio, { once: true });
-        
-        // Update music control button when music ends
-        bgMusic.addEventListener('ended', function() {
-            isMusicPlaying = false;
-            musicControl.classList.remove('active');
-            musicControl.innerHTML = '<i class="fas fa-music"></i>';
-        });
-        
-        // Update music control button when paused (e.g., by browser)
-        bgMusic.addEventListener('pause', function() {
-            if (isMusicPlaying) {
-                isMusicPlaying = false;
-                musicControl.classList.remove('active');
-                musicControl.innerHTML = '<i class="fas fa-music"></i>';
-            }
         });
     </script>
 </body>
